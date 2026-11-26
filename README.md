@@ -201,6 +201,23 @@ demoreel from-session <session.jsonl> -o <out.toml> [--render out.mp4] [--gif]
 
 ---
 
+## Use it as an agent skill
+
+The repo also ships an [Agent Skill](https://agentskills.io) at `skills/demo-reel/SKILL.md`, so a
+coding agent can drive demo-reel for you — write the script, inspect it, render a still, and only
+then spend time on the video.
+
+```bash
+npx skills add Jack91124/demo-reel          # installs the skill
+# then just ask: "make a demo GIF of this CLI for the README"
+```
+
+The skill tells the agent the failure modes that actually matter: inspect before rendering, check a
+still before the full video, do not publish a session log without reading it first, and never claim
+a demo exists before `render` exited 0.
+
+---
+
 ## Design notes
 
 **Why not a headless browser?** VHS renders a real xterm.js in Chrome. That buys perfect terminal emulation, and costs a 300 MB dependency, a fragile Windows story, and a hard wall at "this is a shell, not a conversation." demo-reel draws a character grid with Pillow: `cell_w` comes from `font.getlength("M")`, `cell_h` from the font bounding box, text is drawn per run with a shared baseline. It's ~700 lines, it has no browser, and it renders agent turns natively.
@@ -234,6 +251,8 @@ demoreel/
   themes.py       colour palettes
   cli.py          render / still / inspect / from-session
 demos/            example scripts
+skills/demo-reel/ agent skill (SKILL.md) so an assistant can drive the tool
+docs/             landing page served by GitHub Pages
 tests/            unittest suite
 ```
 
