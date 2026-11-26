@@ -241,6 +241,13 @@ Runs on Windows, macOS and Linux with no OS-specific code paths beyond font disc
 degrades to Pillow's built-in bitmap face rather than crashing). Contributions most wanted: more
 session formats (Gemini CLI, Cursor, DSH), a `--poster` auto-thumbnail, and user-supplied themes.
 
+## Releasing
+
+Pushing a `v*` tag builds the sdist + wheel and publishes to PyPI via
+[Trusted Publishing](https://docs.pypi.org/trusted-publishers/) — no API token in the repo.
+The one-time PyPI setup (project `demo-reel`, workflow `publish.yml`, environment `pypi`) is
+documented at the top of [`.github/workflows/publish.yml`](.github/workflows/publish.yml).
+
 ## License
 
 MIT

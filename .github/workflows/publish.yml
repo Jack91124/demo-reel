@@ -1,0 +1,42 @@
+name: publish
+
+# Publishes to PyPI when you push a tag like v0.2.0.
+# Uses PyPI Trusted Publishing (OIDC) — no API token stored in the repo.
+# One-time setup: on https://pypi.org/manage/account/publishing/ add
+#   project = demo-reel, owner = Jack91124, repo = demo-reel,
+#   workflow = publish.yml, environment = pypi
+# Until that is done this workflow will fail at the "publish" step,
+# which is harmless: the sdist/wheel artifacts are still uploaded to the run.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build
+      - run: python -m build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
