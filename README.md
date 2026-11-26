@@ -3,7 +3,7 @@
 **Turn a text file into a pixel-perfect terminal demo video.** No screen recording. No headless browser. No ttyd. Just Python and `ffmpeg`.
 
 [![CI](https://github.com/Jack91124/demo-reel/actions/workflows/ci.yml/badge.svg)](https://github.com/Jack91124/demo-reel/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/badge/pypi-coming%20soon-lightgrey)](https://github.com/Jack91124/demo-reel)
+[![Release](https://img.shields.io/github/v/release/Jack91124/demo-reel)](https://github.com/Jack91124/demo-reel/releases)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)](https://github.com/Jack91124/demo-reel)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
