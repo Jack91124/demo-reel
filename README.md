@@ -2,8 +2,16 @@
 
 **Turn a text file into a pixel-perfect terminal demo video.** No screen recording. No headless browser. No ttyd. Just Python and `ffmpeg`.
 
+[![CI](https://github.com/Jack91124/demo-reel/actions/workflows/ci.yml/badge.svg)](https://github.com/Jack91124/demo-reel/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/badge/pypi-coming%20soon-lightgrey)](https://github.com/Jack91124/demo-reel)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776ab)](https://github.com/Jack91124/demo-reel)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+**Landing page:** <https://jack91124.github.io/demo-reel/>
+
 ```bash
-pip install demo-reel
+# until the PyPI release lands:
+pip install "git+https://github.com/Jack91124/demo-reel"
 demoreel render demos/claude-session.toml -o demo.mp4
 ```
 
@@ -57,7 +65,8 @@ Change a line, re-render, commit. Your demo is now reviewable in a pull request.
 ## Install
 
 ```bash
-pip install demo-reel
+pip install "git+https://github.com/Jack91124/demo-reel"   # 0.1.0, pre-PyPI
+# once published:  pip install demo-reel
 ```
 
 Requirements: **Python 3.11+**, **ffmpeg** on `PATH` (or pass `--ffmpeg`), **Pillow** (installed automatically).

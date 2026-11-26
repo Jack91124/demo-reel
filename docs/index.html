@@ -56,9 +56,9 @@
   No screen recording, no headless browser, no ttyd. Same file in, byte-identical frames out.</p>
   <div class="cta">
     <a class="btn primary" href="https://github.com/Jack91124/demo-reel">GitHub →</a>
-    <a class="btn" href="#install">pip install demo-reel</a>
+    <a class="btn" href="#install">Install</a>
   </div>
-  <pre><code>pip install demo-reel
+  <pre><code>pip install "git+https://github.com/Jack91124/demo-reel"   # PyPI release pending
 demoreel from-session ~/.claude/projects/-Users-me-app/3f2a.jsonl \
   -o demos/bugfix.toml --render demo.mp4</code></pre>
 </header>
@@ -108,8 +108,10 @@ demoreel from-session ~/.claude/projects/-Users-me-app/3f2a.jsonl \
 # Ubuntu/Debian  sudo apt install ffmpeg
 # Windows        winget install Gyan.FFmpeg
 
-pip install demo-reel
+pip install "git+https://github.com/Jack91124/demo-reel"
 demoreel --help</code></pre>
+  <p class="lede" style="margin-top:20px">0.1.0 is installed from git while the PyPI name is being registered —
+  the <code>demo-reel</code> name is reserved, the upload needs a token the maintainer holds.</p>
 </section>
 
 <section>
@@ -148,7 +150,7 @@ text = "The decoder ignores exp. I will reject tokens whose exp is in the past."
   <span class="pill">MIT</span>
   <span class="pill">Python 3.11+</span>
   <span class="pill">39 offline tests</span>
-  <p style="margin-top:16px"><a href="https://github.com/Jack91124/demo-reel">github.com/Jack91124/demo-reel</a></p>
+  <p style="margin-top:16px"><a href="https://github.com/Jack91124/demo-reel">github.com/Jack91124/demo-reel</a> · <a href="https://jack91124.github.io/demo-reel/">this page</a></p>
 </footer>
 </div>
 </body>
