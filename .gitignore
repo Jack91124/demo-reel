@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
+
+# rendered output: regenerate with `demoreel render`
+out/*.mp4
+out/*.gif
+out/*.png
+!out/.gitkeep

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demo-reel"
+version = "0.1.0"
+description = "Render pixel-perfect terminal and AI-agent session demos from a TOML script - no screen recording, no headless browser."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "demo-reel contributors" }]
+keywords = ["terminal", "demo", "video", "gif", "ascii", "agents", "claude-code", "codex", "ffmpeg", "vhs-alternative"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Multimedia :: Video",
+  "Topic :: Multimedia :: Graphics :: Capture :: Screen Capture",
+  "Topic :: Utilities",
+]
+dependencies = ["pillow>=9.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/Jack91124/demo-reel"
+Issues = "https://github.com/Jack91124/demo-reel/issues"
+
+[project.scripts]
+demoreel = "demoreel.cli:main"
+
+[tool.setuptools]
+packages = ["demoreel"]
+
+[tool.setuptools.package-data]
+demoreel = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

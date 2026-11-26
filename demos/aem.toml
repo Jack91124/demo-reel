@@ -1,0 +1,96 @@
+[meta]
+title = "aem sync — one command, six agents"
+width = 1600
+height = 900
+font_size = 25
+fps = 30
+chars_per_second = 30
+output_delay = 0.05
+gap_after_step = 0.5
+lead_in = 0.5
+tail = 1.2
+prompt = "~/dotfiles $ "
+prompt_style = "green"
+
+[[steps]]
+type = "cmd"
+text = "aem scan --all"
+caption = "1. Scan every agent you already have"
+caption_hold = 2.0
+
+[[steps]]
+type = "out"
+style = { fg = "dim" }
+lines = [
+  "scanning 6 agents...",
+]
+
+[[steps]]
+type = "out"
+style = { fg = "cyan" }
+lines = [
+  "  claude-code   12 skills   ~/.claude/skills",
+  "  codex          3 skills   ~/.codex/skills",
+  "  dsh            9 skills   ~/.dsh/skills",
+  "  gemini-cli     0 skills   (not installed)",
+]
+
+[[steps]]
+type = "cmd"
+text = "aem sync --agent codex --dry-run"
+caption = "2. Dry-run first: see what would change"
+caption_hold = 2.0
+
+[[steps]]
+type = "out"
+style = { fg = "yellow" }
+lines = [
+  "  SKILL  find-skills        A  library changed",
+  "  SKILL  pdf-tools          C  BOTH changed  -> conflict",
+  "  RULES  AGENTS.md          B  target changed",
+]
+
+[[steps]]
+type = "out"
+style = { fg = "dim" }
+lines = [
+  "  dry-run: 3 files, 1 conflict, nothing written",
+]
+
+[[steps]]
+type = "cmd"
+text = "aem sync --agent codex --on-conflict keep-library"
+caption = "3. Conflicts are never silently overwritten"
+caption_hold = 2.2
+
+[[steps]]
+type = "out"
+style = { fg = "green" }
+lines = [
+  "  backup   ~/.aem/backups/codex-20261127-101502",
+  "  wrote    3 files  (atomic replace)",
+  "  conflict pdf-tools -> kept library, target saved as .conflict",
+]
+
+[[steps]]
+type = "out"
+style = { fg = "cyan" }
+lines = [
+  "  verify   ok   6/6 targets match",
+]
+
+[[steps]]
+type = "cmd"
+text = "aem verify --all"
+caption = "4. Verified, not assumed"
+caption_hold = 2.2
+
+[[steps]]
+type = "out"
+style = { fg = "green" }
+lines = [
+  "  ok        claude-code   12 files",
+  "  ok        codex          6 files",
+  "  ok        dsh            9 files",
+  "  drifted   gemini-cli     manual step required",
+]

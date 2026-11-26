@@ -1,0 +1,67 @@
+[meta]
+title = "Claude Code — refactor auth middleware"
+width = 1600
+height = 900
+font_size = 24
+fps = 30
+chars_per_second = 34
+output_delay = 0.04
+gap_after_step = 0.45
+lead_in = 0.45
+tail = 1.2
+theme = "dracula"
+
+[[steps]]
+type = "banner"
+text = "session 2026-11-27  claude-code  ~/api-service"
+style = { fg = "dim", bg = "titlebar" }
+
+[[steps]]
+type = "user"
+label = "you"
+text = "auth middleware accepts expired tokens, fix it"
+caption = "Real agent work, recorded as a spec — not a screen cast"
+caption_hold = 2.0
+
+[[steps]]
+type = "assistant"
+label = "claude"
+text = "Reading the middleware and its tests first."
+
+[[steps]]
+type = "tool"
+label = "Read"
+call = "src/auth/middleware.ts"
+lines = ["1  export async function verify(req: Request) {", "2    const t = req.headers.get('authorization')", "3    return decode(t)   // no exp check"]
+
+[[steps]]
+type = "tool"
+label = "Grep"
+call = "exp  (12 matches in 3 files)"
+lines = ["src/auth/middleware.test.ts:44  expired token"]
+
+[[steps]]
+type = "assistant"
+label = "claude"
+text = "The decoder ignores exp. I will reject tokens whose exp is in the past, and add a test."
+caption = "The transcript is deterministic: same input, same frames"
+caption_hold = 2.0
+
+[[steps]]
+type = "tool"
+label = "Edit"
+call = "src/auth/middleware.ts  (+6 -1)"
+lines = ["+ const { exp } = decode(t)", "+ if (exp * 1000 < Date.now()) throw new TokenExpired()"]
+
+[[steps]]
+type = "tool"
+label = "Bash"
+call = "npm test -- auth"
+lines = ["PASS  src/auth/middleware.test.ts", "  14 passed  0 failed"]
+
+[[steps]]
+type = "assistant"
+label = "claude"
+text = "Done: expired tokens now throw TokenExpired, covered by 3 new tests."
+caption = "One command to re-render when the code changes"
+caption_hold = 2.4
