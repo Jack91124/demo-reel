@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>demo-reel — terminal &amp; agent demos as text files</title>
+<meta name="description" content="Turn a TOML file into a pixel-perfect terminal demo video. No screen recording, no headless browser. Renders AI agent sessions too.">
+<meta property="og:title" content="demo-reel — terminal &amp; agent demos as text files">
+<meta property="og:description" content="Turn a TOML file into a pixel-perfect terminal demo video. No screen recording, no headless browser.">
+<meta property="og:image" content="https://jack91124.github.io/demo-reel/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+<style>
+  :root{--bg:#0b0d12;--panel:#11141b;--line:#222834;--fg:#e8ecf3;--dim:#8b98ad;--acc:#7ee787;--acc2:#79c0ff;--warn:#f0b849}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#16202e 0%,var(--bg) 60%);
+       color:var(--fg);font:16px/1.65 ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC",sans-serif}
+  a{color:var(--acc2);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header{padding:88px 0 40px;text-align:center}
+  h1{font-size:clamp(34px,6vw,58px);margin:0 0 18px;letter-spacing:-.02em;line-height:1.1}
+  h1 em{font-style:normal;background:linear-gradient(92deg,#7ee787,#79c0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:clamp(17px,2.4vw,21px);color:var(--dim);max-width:720px;margin:0 auto 30px}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:9px;border:1px solid var(--line);
+       background:var(--panel);color:var(--fg);font-weight:600;font-size:15px}
+  .btn:hover{border-color:#39445a;text-decoration:none}
+  .btn.primary{background:linear-gradient(180deg,#1f6feb,#1a5fd0);border-color:#2b74e8}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;overflow:auto;
+      font:13.5px/1.7 ui-monospace,SFMono-Regular,Consolas,"Courier New",monospace;margin:0}
+  code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.92em}
+  .hero pre{text-align:left;max-width:720px;margin:34px auto 0}
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 12px;letter-spacing:-.01em}
+  .lede{color:var(--dim);max-width:680px;margin:0 0 28px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h3{margin:0 0 8px;font-size:16px}
+  .card p{margin:0;color:var(--dim);font-size:14.5px}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+  td:first-child{white-space:nowrap;color:var(--fg);font-weight:600}
+  .ok{color:var(--acc)} .no{color:var(--warn)}
+  img.shot{width:100%;border:1px solid var(--line);border-radius:12px;display:block}
+  footer{padding:48px 0 72px;color:var(--dim);font-size:14px;text-align:center;border-top:1px solid var(--line)}
+  .pill{display:inline-block;padding:2px 9px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Demo videos,<br><em>committed as text.</em></h1>
+  <p class="sub">demo-reel renders a terminal — or a Claude Code / Codex session — from a TOML file into an MP4 or GIF.
+  No screen recording, no headless browser, no ttyd. Same file in, byte-identical frames out.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/Jack91124/demo-reel">GitHub →</a>
+    <a class="btn" href="#install">pip install demo-reel</a>
+  </div>
+  <pre><code>pip install demo-reel
+demoreel from-session ~/.claude/projects/-Users-me-app/3f2a.jsonl \
+  -o demos/bugfix.toml --render demo.mp4</code></pre>
+</header>
+
+<section>
+  <h2>Screen recording is the wrong tool</h2>
+  <p class="lede">A recorded demo can't be reviewed in a pull request, can't be re-rendered after a copy change,
+  and can't be reproduced by anyone else. A demo written as a text file can do all three.</p>
+  <img class="shot" src="https://raw.githubusercontent.com/Jack91124/demo-reel/main/assets/theme-github-dark.png"
+       alt="A terminal demo rendered by demo-reel: aem scan, sync --dry-run, conflict handling, verify">
+</section>
+
+<section>
+  <h2>What it renders</h2>
+  <div class="grid">
+    <div class="card"><h3>Shell transcripts</h3><p><code>cmd</code> steps type character by character; <code>out</code> steps print line by line.
+      Prompts, colours, banners, captions.</p></div>
+    <div class="card"><h3>Agent sessions</h3><p><code>user</code> / <code>assistant</code> / <code>tool</code> steps.
+      Point <code>from-session</code> at a real Claude Code or Codex JSONL log and it writes the TOML for you.</p></div>
+    <div class="card"><h3>Six themes</h3><p>github-dark, dracula, nord, light, midnight, solarized — 19 colour keys each, overridable per script.</p></div>
+    <div class="card"><h3>CJK done properly</h3><p>Double-width cells for Chinese/Japanese/Korean, separate glyph fallback fonts,
+      and truncation measured in terminal cells instead of characters.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Compared to what already exists</h2>
+  <p class="lede">Every alternative either needs a browser, records a live shell (so it is never reproducible),
+  or has been abandoned — and none of them can draw an agent conversation.</p>
+  <table>
+    <thead><tr><th>Tool</th><th>Stars</th><th>Last release</th><th>Agent sessions</th><th>Deterministic</th><th>Needs a browser</th></tr></thead>
+    <tbody>
+      <tr><td>demo-reel</td><td>—</td><td>0.1.0</td><td class="ok">yes</td><td class="ok">yes</td><td class="ok">no</td></tr>
+      <tr><td>charmbracelet/vhs</td><td>21k</td><td>active</td><td class="no">no</td><td class="ok">yes</td><td class="no">yes + ttyd</td></tr>
+      <tr><td>asciinema</td><td>18k</td><td>active</td><td class="no">no</td><td class="no">no</td><td class="ok">no</td></tr>
+      <tr><td>terminalizer</td><td>16k</td><td>2024-08</td><td class="no">no</td><td class="no">no</td><td class="no">yes</td></tr>
+      <tr><td>termtosvg</td><td>9k</td><td>2020</td><td class="no">no</td><td class="ok">yes</td><td class="ok">no</td></tr>
+      <tr><td>svg-term-cli</td><td>4k</td><td>2024-05</td><td class="no">no</td><td class="ok">yes</td><td class="ok">no</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="install">
+  <h2>Install</h2>
+  <p class="lede">Python 3.11+, ffmpeg on <code>PATH</code>, Pillow (installed automatically). Runs on Windows, macOS and Linux.</p>
+  <pre><code># macOS          brew install ffmpeg
+# Ubuntu/Debian  sudo apt install ffmpeg
+# Windows        winget install Gyan.FFmpeg
+
+pip install demo-reel
+demoreel --help</code></pre>
+</section>
+
+<section>
+  <h2>The format is the point</h2>
+  <pre><code>[[steps]]
+type = "user"
+label = "you"
+text = "auth middleware accepts expired tokens, fix it"
+
+[[steps]]
+type = "tool"
+label = "Read"
+call = "src/auth/middleware.ts"
+lines = ["1  export async function verify(req: Request) {",
+         "3    return decode(t)   // no exp check"]
+
+[[steps]]
+type = "assistant"
+label = "claude"
+text = "The decoder ignores exp. I will reject tokens whose exp is in the past."</code></pre>
+  <p class="lede" style="margin-top:24px">Change a line, re-render, commit. The diff shows exactly what changed in the demo —
+  which is something a 4 MB GIF in your repo will never do.</p>
+</section>
+
+<section>
+  <h2>Honest limitations</h2>
+  <div class="grid">
+    <div class="card"><h3>Not an emulator</h3><p>It draws a character grid; it does not run your program. Real ANSI art, cursor addressing
+      or a TUI redrawing itself needs VHS.</p></div>
+    <div class="card"><h3>Two session formats</h3><p>Claude Code and Codex today. Gemini CLI, Cursor and DSH are open issues —
+      DSH logs are zstd-compressed, which needs a decoder dependency we have not added.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span class="pill">MIT</span>
+  <span class="pill">Python 3.11+</span>
+  <span class="pill">39 offline tests</span>
+  <p style="margin-top:16px"><a href="https://github.com/Jack91124/demo-reel">github.com/Jack91124/demo-reel</a></p>
+</footer>
+</div>
+</body>
+</html>
