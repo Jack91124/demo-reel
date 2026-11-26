@@ -67,8 +67,11 @@ demoreel from-session ~/.claude/projects/-Users-me-app/3f2a.jsonl \
   <h2>Screen recording is the wrong tool</h2>
   <p class="lede">A recorded demo can't be reviewed in a pull request, can't be re-rendered after a copy change,
   and can't be reproduced by anyone else. A demo written as a text file can do all three.</p>
-  <img class="shot" src="shot-terminal.png"
-       alt="A terminal demo rendered by demo-reel: aem scan, sync --dry-run, conflict handling, verify">
+  <img class="shot" src="demo.gif"
+       alt="A Claude Code session rendered by demo-reel: a prompt, three tool calls, an edit, and a test run">
+  <p class="lede" style="margin-top:14px;font-size:13.5px">↑ The GIF above is the output of
+  <code>demoreel render demos/claude-session.toml --gif</code>. Every frame was drawn from the TOML file —
+  nothing was captured from a screen.</p>
 </section>
 
 <section>
